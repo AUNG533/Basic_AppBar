@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,16 +15,16 @@ class Choice {
 
 const List<Choice> choices = <Choice>[
   Choice(title: 'Car', icon: Icons.directions_car),
-  Choice(title: 'Bicycle', icon: Icons.directions_car),
-  Choice(title: 'Boat', icon: Icons.directions_car),
-  Choice(title: 'Bus', icon: Icons.directions_car),
-  Choice(title: 'Train', icon: Icons.directions_car),
-  Choice(title: 'Walk', icon: Icons.directions_car)
+  Choice(title: 'Bicycle', icon: Icons.directions_bike),
+  Choice(title: 'Boat', icon: Icons.directions_boat),
+  Choice(title: 'Bus', icon: Icons.directions_bus),
+  Choice(title: 'Train', icon: Icons.directions_railway),
+  Choice(title: 'Walk', icon: Icons.directions_walk)
 ];
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  final appTitle = "AppBar Layout";
+  final appTitle = "AppBar";
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: appTitle,),
+      home: MyHomePage(
+        title: appTitle,
+      ),
     );
   }
 }
@@ -50,8 +54,31 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // elevation: 50,
+        // titleSpacing: 150,
+        //centerTitle: true,
+        // titleTextStyle: const TextStyle(color: Colors.red, fontSize: 40),
+        // iconTheme: IconThemeData(color: Colors.red, size: 50),
+        leading: Icon(Icons.school),
         title: Text(widget.title),
+        actions: [
+          _buildActionButton(choices[0]),
+          _buildActionButton(choices[1]),
+        ],
       ),
+    );
+  }
+
+  Widget _buildActionButton(Choice item) {
+    return IconButton(
+      onPressed: () {},
+      icon: Icon(item.icon),
+      // iconSize: 40,
+      // color: Colors.green,
+      // highlightColor: Colors.red,
+      // splashColor: Colors.cyan,
+      // alignment: Alignment(-10, 0),
+      tooltip: item.title,
     );
   }
 }
