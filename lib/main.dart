@@ -4,6 +4,22 @@ void main() {
   runApp(const MyApp());
 }
 
+class Choice {
+  final String title;
+  final IconData icon;
+
+  const Choice({required this.title, required this.icon});
+}
+
+const List<Choice> choices = <Choice>[
+  Choice(title: 'Car', icon: Icons.directions_car),
+  Choice(title: 'Bicycle', icon: Icons.directions_car),
+  Choice(title: 'Boat', icon: Icons.directions_car),
+  Choice(title: 'Bus', icon: Icons.directions_car),
+  Choice(title: 'Train', icon: Icons.directions_car),
+  Choice(title: 'Walk', icon: Icons.directions_car)
+];
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   final appTitle = "AppBar Layout";
