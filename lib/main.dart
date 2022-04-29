@@ -50,35 +50,66 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Choice _selectChoice = choices[0];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // elevation: 50,
-        // titleSpacing: 150,
-        //centerTitle: true,
-        // titleTextStyle: const TextStyle(color: Colors.red, fontSize: 40),
-        // iconTheme: IconThemeData(color: Colors.red, size: 50),
         leading: Icon(Icons.school),
         title: Text(widget.title),
         actions: [
           _buildActionButton(choices[0]),
           _buildActionButton(choices[1]),
+          _buildPopupMenu(),
         ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              _selectChoice.icon,
+              size: 120,
+            ),
+            Text(_selectChoice.title)
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildActionButton(Choice item) {
     return IconButton(
-      onPressed: () {},
       icon: Icon(item.icon),
-      // iconSize: 40,
-      // color: Colors.green,
-      // highlightColor: Colors.red,
-      // splashColor: Colors.cyan,
-      // alignment: Alignment(-10, 0),
       tooltip: item.title,
+      onPressed: () {
+        _select(item);
+      },
+    );
+  }
+
+  void _select(Choice choice) {
+    setState(() {
+      _selectChoice = choice;
+    });
+  }
+
+  Widget _buildPopupMenu() {
+    return PopupMenuButton<Choice>(
+      itemBuilder: (context) {
+        return choices.skip(2).map((Choice choice) {
+          return PopupMenuItem<Choice>(
+              value: choice, child: Text(choice.title));
+        }).toList();
+      },
+      onSelected: _select,
+      icon: Icon(Icons.menu),
+      tooltip: "Menu",
+      onCanceled: () {
+        print("onCanceled");
+      },
     );
   }
 }
